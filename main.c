@@ -1,4 +1,7 @@
 #include "ordenacao.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
 
 typedef struct metricas {
 unsigned long long comp, moviment;
@@ -10,15 +13,16 @@ int id, x;
 
 
 int main() {
-
-    // Inicia a contagem de tempo 
+    clock_t inicio, fim;
+    double tempo_gasto;
+    int tamanho = 1000;
 
     
-        // Chama o algoritmo de ordenação 
-
-        
-    // Finaliza a contagem de tempo 
+    inicio = clock();
+    //metodos de ordenacao
+    fim = clock();
+    tempo_gasto = ((double)(fim - inicio) / CLOCKS_PER_SEC) * 1000;
 
     return 0;
-
+    
 }
