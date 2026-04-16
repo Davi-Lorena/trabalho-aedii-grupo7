@@ -16,7 +16,6 @@ int main() {
     clock_t inicio, fim;
     double tempo_gasto;
     int tamanho = 1000;
-
     
     inicio = clock();
     //metodos de ordenacao
