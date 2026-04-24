@@ -1,0 +1,8 @@
+[
+{
+  "directory": "/mnt/c/Users/Usuario/Desktop/3 periodo/Algoritmo e Estrutura de Dados 2/Trabalho Analise/trabalho-aedii-grupo7/build",
+  "command": "/usr/bin/gcc  -I\"/mnt/c/Users/Usuario/Desktop/3 periodo/Algoritmo e Estrutura de Dados 2/Trabalho Analise/trabalho-aedii-grupo7\" -g -std=gnu11 -o CMakeFiles/teste.dir/main.c.o -c \"/mnt/c/Users/Usuario/Desktop/3 periodo/Algoritmo e Estrutura de Dados 2/Trabalho Analise/trabalho-aedii-grupo7/main.c\"",
+  "file": "/mnt/c/Users/Usuario/Desktop/3 periodo/Algoritmo e Estrutura de Dados 2/Trabalho Analise/trabalho-aedii-grupo7/main.c",
+  "output": "CMakeFiles/teste.dir/main.c.o"
+}
+]

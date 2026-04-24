@@ -1,0 +1,3 @@
+/mnt/c/Users/Usuario/Desktop/3 periodo/Algoritmo e Estrutura de Dados 2/Trabalho Analise/trabalho-aedii-grupo7/build/CMakeFiles/teste.dir
+/mnt/c/Users/Usuario/Desktop/3 periodo/Algoritmo e Estrutura de Dados 2/Trabalho Analise/trabalho-aedii-grupo7/build/CMakeFiles/edit_cache.dir
+/mnt/c/Users/Usuario/Desktop/3 periodo/Algoritmo e Estrutura de Dados 2/Trabalho Analise/trabalho-aedii-grupo7/build/CMakeFiles/rebuild_cache.dir

@@ -1,0 +1,1 @@
+/usr/bin/gcc -g CMakeFiles/teste.dir/main.c.o -o teste  "/mnt/c/Users/Usuario/Desktop/3 periodo/Algoritmo e Estrutura de Dados 2/Trabalho Analise/trabalho-aedii-grupo7/lib/lib.a" 
