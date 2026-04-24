@@ -116,12 +116,13 @@ void testar_algoritmo(const char* nome, int tam, int id_algoritmo) {
 }
 
 int main() {
-    int tamanhos[] = {1000, 10000, 100000, 1000000, 10000000}; 
+    int tamanhos[] = {1000, 10000};
+    int tam2[] = {100000, 1000000, 10000000};
+    int t, tam;
 
-    for (int i = 0; i < 5; i++) {
-        int t = tamanhos[i];
+    for (int i = 0; i < 2; i++) {
+        t = tamanhos[i];
 
-        // Chamadas uma a uma conforme aparecem no arquivo.h 
         testar_algoritmo("Bolha Inteligente", t, 1);
         testar_algoritmo("Selecao", t, 2);
         testar_algoritmo("Insercao", t, 3);
@@ -129,6 +130,15 @@ int main() {
         testar_algoritmo("QuickSort Tradicional", t, 5);
         testar_algoritmo("ShellSort", t, 6);
         testar_algoritmo("HeapSort", t, 7);
+    }
+
+    // Separando os métodos que rodaram com vetores de tamanho maior 
+    for (int i = 0; i < 3; i++) {
+        tam = tam2[i];
+
+        testar_algoritmo("MergeSort", tam, 4);
+        testar_algoritmo("ShellSort", tam, 6);
+        testar_algoritmo("HeapSort", tam, 7);
     }
 
     return 0;
