@@ -3,6 +3,7 @@
 #include "ordenacao.h"
 #include <time.h>
 
+// Funções de apoio para métricas, geração e ordenação de vetores de teste
 //STRUCTS
 struct metricas{
     unsigned long long comparacoes;
@@ -14,7 +15,7 @@ struct request {
     int chegada;
 };
 
-//OPERAÇÕES COM METRICAS
+// OPERAÇÕES COM MÉTRICAS: alocação, liberação e impressão/salvamento de dados
 
 met *alocaMetricas() {
     met *m = (met *)malloc(sizeof(met));
@@ -43,14 +44,15 @@ void salvaMetricas(met *m, char *nomeArquivo) {
     fclose(arq);
 }
 
-//TIPOS DE VETORES
+// Geração de diferentes tipos de vetores usados nos testes
 
 r *geraAleatorios(int tam, unsigned int seed) {
+    int i;
     if (seed == 0) srand(time(NULL));
     else srand(seed);
 
     r *vet = (r *) malloc(tam * sizeof(r));
-    for (int i = 0; i < tam; i++) {
+    for (i = 0; i < tam; i++) {
         vet[i].user_id = rand() % 1000;
         vet[i].chegada = i;
     }
@@ -69,13 +71,15 @@ r *geraOrdenados(int tam, unsigned int seed) {
 }
 
 r *geraQuaseOrdenados(int tam, unsigned int seed, unsigned int porc) {
+    int i, p1, p2;
+    r aux;
     r *vet = geraOrdenados(tam, seed);
 
     int qtdTrocas = (tam * porc) / 100;
-    for (int i = 0; i < qtdTrocas; i++) {
-        int p1 = rand() % tam;
-        int p2 = rand() % tam;
-        r aux = vet[p1];
+    for (i = 0; i < qtdTrocas; i++) {
+        p1 = rand() % tam;
+        p2 = rand() % tam;
+        aux = vet[p1];
         vet[p1] = vet[p2];
         vet[p2] = aux;
     }
@@ -101,21 +105,23 @@ r *geraDecrescente(int tam, unsigned int seed) {
     return vet;
 }
 
-//OPERAÇÕES COM VETOES
+// Operações de vetor: impressão, salvamento e liberação
 
 void imprimeVet(r *vet, int tam) {
-    for (int i = 0 ; i < tam ; i++) {
+    int i;
+    for (i = 0 ; i < tam ; i++) {
         printf("%d - %d\n", vet[i].user_id, vet[i].chegada);
     }
 }
 
 void salvaVetor(r *vet, int tam, char *nomeArquivo) {
     FILE *arq = fopen(nomeArquivo, "w");
+    int i;
     if (arq == NULL) {
         printf("Erro ao abrir o arquivo para salvar o vetor.\n");
         return;
     }
-    for (int i = 0; i < tam; i++) {
+    for (i = 0; i < tam; i++) {
         fprintf(arq, "%d\t%d\n", vet[i].user_id, vet[i].chegada);
     }
     fclose(arq);
@@ -126,9 +132,10 @@ void liberaVetor(r *vet) {
 }
 
 
-//METODOS DE ORDENAÇÃO
+// MÉTODOS DE ORDENAÇÃO: algoritmos de ordenação e seus detalhes de implementação
 
 
+// Bolha Inteligente: para cedo se o vetor já estiver ordenado
 met *bolhaInteligente(r *vet, int tam) {
     met *m = alocaMetricas();
     r aux;
@@ -152,13 +159,14 @@ met *bolhaInteligente(r *vet, int tam) {
     return m;
 }
 
+// Seleção: percorre o vetor buscando o menor elemento para cada posição
 met *selecao(r *vet, int tam) {
     met *m  = alocaMetricas();
-    int menor;
+    int i, j, menor;
     r aux;
-    for (int i = 0 ; i < tam ; i++) {
+    for (i = 0 ; i < tam ; i++) {
         menor = i;
-        for (int j = i + 1 ; j < tam; j++) {
+        for (j = i + 1 ; j < tam; j++) {
             m->comparacoes++;
             if (vet[j].user_id < vet[menor].user_id) {
                 menor = j;
@@ -178,10 +186,12 @@ met *selecao(r *vet, int tam) {
 
 met *insercao(r *vet, int tam) {
     met *m = alocaMetricas();
-    for(int i = 0 ; i < tam ; i++) {
-        r aux = vet[i];
+    int i, pos;
+    r aux;
+    for(i = 0 ; i < tam ; i++) {
+        aux = vet[i];
         m->movimentacoes++;
-        int pos = i - 1;
+        pos = i - 1;
         while (pos >= 0) {
             m->comparacoes++;
             if (aux.user_id < vet[pos].user_id) {
@@ -203,22 +213,24 @@ met *insercao(r *vet, int tam) {
 void merge(r *vet, int inicio, int meio, int fim, met *m) {
     int n1 = meio - inicio + 1;
     int n2 = fim - meio;
-
+    int i, j, k;
 
     r *L = (r *)malloc(n1 * sizeof(r));
     r *R = (r *)malloc(n2 * sizeof(r));
 
 
-    for (int i = 0; i < n1; i++) {
+    for (i = 0; i < n1; i++) {
         L[i] = vet[inicio + i];
         m->movimentacoes++;
     }
-    for (int j = 0; j < n2; j++) {
+    for (j = 0; j < n2; j++) {
         R[j] = vet[meio + 1 + j];
         m->movimentacoes++;
     }
 
-    int i = 0, j = 0, k = inicio;
+    i = 0;
+    j = 0;
+    k = inicio;
 
     while (i < n1 && j < n2) {
         m->comparacoes++;
@@ -261,22 +273,24 @@ void mergeSort(r *vet, int inicio, int fim, met *m) {
 
 int particiona(r *vet, int inicio, int fim, met *m) {
     r pivo = vet[inicio];
+    int i, j;
+    r aux;
     m->movimentacoes++;
 
-    int i = inicio;
+    i = inicio;
 
-    for (int j = inicio + 1; j <= fim; j++) {
+    for (j = inicio + 1; j <= fim; j++) {
         m->comparacoes++;
         if (vet[j].user_id < pivo.user_id) {
             i++;
-            r aux = vet[i];
+            aux = vet[i];
             vet[i] = vet[j];
             vet[j] = aux;
             m->movimentacoes += 3;
         }
     }
 
-    r aux = vet[inicio];
+    aux = vet[inicio];
     vet[inicio] = vet[i];
     vet[i] = aux;
     m->movimentacoes += 3;
@@ -350,15 +364,17 @@ void trocaMaior(r *vet, int pai, int tam, met *m) {
 
 met *heapSort(r *vet, int tam) {
     met *m = alocaMetricas();
+    int i;
+    r aux;
 
     // Construir a Heap Máxima (Build Heap)
-    for (int i = tam / 2 - 1; i >= 0; i--) {
+    for (i = tam / 2 - 1; i >= 0; i--) {
         trocaMaior(vet, i, tam, m);
     }
 
     //  Extrair elementos um por um
-    for (int i = tam - 1; i > 0; i--) {
-        r aux = vet[0];
+    for (i = tam - 1; i > 0; i--) {
+        aux = vet[0];
         vet[0] = vet[i];
         vet[i] = aux;
         m->movimentacoes += 3;
@@ -374,9 +390,11 @@ met *bozoSort(r *vet, int tam) {
     if (m == NULL) return NULL;
 
     int ordenado = 0;
+    int i, j, k;
+    r aux;
     while (!ordenado) {
-        int i = rand() % tam;
-        int j = rand() % tam;
+        i = rand() % tam;
+        j = rand() % tam;
 
         r aux = vet[i];
         vet[i] = vet[j];
@@ -384,7 +402,7 @@ met *bozoSort(r *vet, int tam) {
         m->movimentacoes += 3;
 
         ordenado = 1; // Assume que está ordenado
-        for (int k = 0; k < tam - 1; k++) {
+        for (k = 0; k < tam - 1; k++) {
             m->comparacoes++;
             if (vet[k].user_id > vet[k + 1].user_id) {
                 ordenado = 0;
