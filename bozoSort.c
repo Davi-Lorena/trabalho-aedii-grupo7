@@ -20,7 +20,7 @@ r* gerar_ordenado(int tam) { return geraOrdenados(tam, 0); }
 r* gerar_decrescente(int tam) { return geraDecrescente(tam, 0); }
 r* gerar_quase_ordenado(int tam) { return geraQuaseOrdenados(tam, time(NULL), 10); }
 
-// Algoritmo para testar o bozoSort
+// Executa testes de BozoSort em diferentes cenários de vetor
 void testar_bozo(int tam, int tempo_limite_segundos) {
     char* cenarios[] = {"Aleatorio", "Ordenado", "Decrescente", "Quase Ordenado"};
     int repeticoes = 5;
@@ -28,15 +28,17 @@ void testar_bozo(int tam, int tempo_limite_segundos) {
     unsigned long long totalComp = 0, totalMov = 0;
     double totalTempo = 0.0;
     int concluidos = 0;
+    int c, i;
     clock_t inicio, fim;
     met *m;
     r *vetor;
 
     printf("\nTestando BozoSort | Tamanho: %d\n", tam);
 
-    for (int c = 0; c < 4; c++) {
-        for (int i = 0; i < repeticoes; i++) {
+    for (c = 0; c < 4; c++) {
+        for (i = 0; i < repeticoes; i++) {
 
+            // Interrompe se o tempo total de execução exceder o limite definido
             if (((double)(clock() - global_inicio) / CLOCKS_PER_SEC) > tempo_limite_segundos) {
                 break;
             }
@@ -68,7 +70,7 @@ void testar_bozo(int tam, int tempo_limite_segundos) {
     }
 }
 
-// Método para descobrir o maior tamanho de vetor 
+// Busca o maior tamanho de vetor que ainda rodará em menos de 5 minutos
 void descobrir_limite_5min() {
     printf("\nBuscando maior tamanho para 5 minutos (300s)\n");
     int tam = 1;
@@ -103,8 +105,10 @@ void descobrir_limite_5min() {
 
 int main() {
     int tamanhos[] = {4, 8, 10, 12};
+    int i;
 
-    for (int i = 0; i < 4; i++) {
+    // Executa testes de BozoSort para tamanhos pequenos e depois determina limite prático
+    for (i = 0; i < 4; i++) {
         testar_bozo(tamanhos[i], 30);
     }
 

@@ -41,7 +41,8 @@ void testar_algoritmo(const char* nome, int tam, int id_algoritmo) {
     // Variáveis para coleta de métricas e tempo
     clock_t inicio, fim;
     double tempo, mediaTempo, mediaComparacoes, mediaMovimentacoes, totalTempo = 0.0;
-    met* m = NULL;
+    int i;
+    met *m = NULL;
     met *mParaParametro = NULL; // Para algoritmos que pedem parâmetro manual
     r* vetor; 
     unsigned long long totalComparacoes = 0, totalMovimentacoes = 0;
@@ -56,7 +57,7 @@ void testar_algoritmo(const char* nome, int tam, int id_algoritmo) {
             repeticoes = 1;
         }
 
-        for (int i = 0; i < repeticoes; i++) {
+        for (i = 0; i < repeticoes; i++) {
             // Chamada dos métodos de geração criados acima
             if (c == 0) vetor = gerar_aleatorio(tam);
             else if (c == 1) vetor = gerar_ordenado(tam);
@@ -116,10 +117,11 @@ void testar_algoritmo(const char* nome, int tam, int id_algoritmo) {
 }
 
 int main() {
-    int tamanhos[] = {1000, 10000, 100000, 1000000, 10000000}; 
+    int tamanhos[] = {1000, 10000, 100000, 1000000, 10000000};
+    int i, t;
 
-    for (int i = 0; i < 5; i++) {
-        int t = tamanhos[i];
+    for (i = 0; i < 5; i++) {
+        t = tamanhos[i];
 
         // Chamadas uma a uma conforme aparecem no arquivo.h 
         testar_algoritmo("Bolha Inteligente", t, 1);
